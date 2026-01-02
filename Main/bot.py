@@ -6,6 +6,7 @@ import asyncio
 import variables as ENV_V
 import card_compiler
 import json
+import os
 
 with open("assets/enemylist.json", "r") as f:
     enemylist = json.load(f)
@@ -44,14 +45,14 @@ async def ping(interaction: discord.Interaction):
 )
 async def card(interaction: discord.Interaction, name: str):
     await interaction.response.defer()
-    try:
-        enemypng = discord.File("assets/enemies/" + enemylist["name"]["category"] + "/" + enemylist["name"]["name"] + ".png")
-    except KeyError:
+    if os.path.exists("assets/enemies/" + enemylist["name"]["category"] + "/" + enemylist["name"]["name"] + ".png"):
+        card_compiler.compile_card(enemylist[name], output)
+        file = discord.File(output)
+        await interaction.followup.send(file=file)
+    else:
         await interaction.followup.send(f"Enemy named '{name}' not found in database." + f"\nerror: \n{KeyError}", ephemeral=True)
         return
-    card_compiler.compile_card(enemylist[name], output)
-    file = discord.File(output)
-    await interaction.followup.send(file=file)
+    
 #-----Main loop-----#
 
 client.run(ENV_V.TOKEN)
