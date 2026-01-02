@@ -8,10 +8,10 @@ import card_compiler
 import json
 import os
 
-with open("assets/enemylist.json", "r") as f:
+with open("./assets/enemylist.json", "r") as f:
     enemylist = json.load(f)
 
-output = "temp/output.png"
+output = "./temp/output.png"
 
 class MyClient(discord.Client):
     def __init__(self):
