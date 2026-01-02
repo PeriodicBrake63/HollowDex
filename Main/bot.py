@@ -45,11 +45,12 @@ async def ping(interaction: discord.Interaction):
 async def card(interaction: discord.Interaction, name: str):
     await interaction.response.defer()
     try:
-        card_compiler.compile_card(enemylist[name], output)
-        file = discord.File(output)
-        await interaction.followup.send(file=file)
+        enemypng = discord.File("assets/enemies/" + enemylist["name"]["category"] + "/" + enemylist["name"]["name"] + ".png")
     except KeyError:
         await interaction.followup.send(f"Enemy named '{name}' not found in database.")
+    card_compiler.compile_card(enemylist[name], output)
+    file = discord.File(output)
+    await interaction.followup.send(file=file)
 #-----Main loop-----#
 
 client.run(ENV_V.TOKEN)
