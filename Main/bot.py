@@ -48,6 +48,7 @@ async def card(interaction: discord.Interaction, name: str):
         enemypng = discord.File("assets/enemies/" + enemylist["name"]["category"] + "/" + enemylist["name"]["name"] + ".png")
     except KeyError:
         await interaction.followup.send(f"Enemy named '{name}' not found in database.")
+        return
     card_compiler.compile_card(enemylist[name], output)
     file = discord.File(output)
     await interaction.followup.send(file=file)
