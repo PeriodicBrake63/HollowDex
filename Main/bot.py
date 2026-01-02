@@ -1,6 +1,6 @@
 #-----Imports-----#
 
-import discord.py
+import discord
 from discord.ext import commands
 import asyncio
 import variables as ENV_V
