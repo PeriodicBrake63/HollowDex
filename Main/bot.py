@@ -45,13 +45,14 @@ async def ping(interaction: discord.Interaction):
 )
 async def card(interaction: discord.Interaction, name: str):
     await interaction.response.defer()
-    if os.path.exists("assets/enemies/" + enemylist["name"]["category"] + "/" + enemylist["name"]["name"] + ".png"):
-        card_compiler.compile_card(enemylist[name], output)
-        file = discord.File(output)
-        await interaction.followup.send(file=file)
-    else:
-        await interaction.followup.send(f"Enemy named '{name}' not found in database." + f"\nerror: \n{KeyError}", ephemeral=True)
-        return
+    if name in enemylist:
+        if os.path.exists("./assets/enemies/" + enemylist[name]["category"] + "/" + "name" + ".png"):
+            card_compiler.compile_card(enemylist[name], output)
+            file = discord.File(output)
+            await interaction.followup.send(file=file)
+            return    
+    await interaction.followup.send(f"Enemy named '{name}' not found in database.", ephemeral=True)
+    return
     
 #-----Main loop-----#
 
