@@ -8,12 +8,11 @@ import card_compiler
 import json
 import os
 
-if os.path.exists("./assets/enemylist.json"):
-    with open("./assets/enemylist.json", "r") as f:
+if os.path.exists("/home/container/Main/assets/enemylist.json"):
+    with open("/home/container/Main/assets/enemylist.json", "r") as f:
         enemylist = json.load(f)
 
-    output = "./temp/output.png"
-
+    output = "/home/container/Main/temp/output.png"
 class MyClient(discord.Client):
     def __init__(self):
         intents = discord.Intents.default()
