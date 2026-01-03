@@ -1,0 +1,99 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import logo from "@/assets/hollowdex-logo.webp";
+
+const DISCORD_OAUTH_URL = "https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID";
+const VOTE_URL = "https://top.gg/bot/hollowdex/vote";
+const DISCORD_URL = "https://discord.gg/hollowdex";
+
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navLinks = [
+    { label: "Home", to: "/", external: false },
+    { label: "Commands", to: "/commands", external: false },
+    { label: "Vote", to: VOTE_URL, external: true },
+    { label: "Add to Discord", to: DISCORD_OAUTH_URL, external: true },
+    { label: "Support Server", to: DISCORD_URL, external: true },
+  ];
+
+  return (
+    <header className="fixed top-4 left-1/2 z-50 w-[calc(100%-32px)] md:w-[calc(100%-48px)] max-w-7xl -translate-x-1/2 px-3 md:px-4">
+      <nav className="flex items-center justify-between gap-4 md:gap-6 rounded-2xl border border-border/50 bg-card/90 backdrop-blur-xl px-4 md:px-6 py-2.5 md:py-3">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2 shrink-0">
+          <img src={logo} alt="HollowDex" className="h-6 md:h-8 w-auto" />
+          <span className="font-semibold text-sm md:text-base tracking-wide">HollowDex</span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center gap-6">
+          {navLinks.map((link) =>
+            link.external ? (
+              <a
+                key={link.label}
+                href={link.to}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.label}
+                to={link.to}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {link.label}
+              </Link>
+            )
+          )}
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsOpen((prev) => !prev)}
+          className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
+          aria-label="Toggle menu"
+        >
+          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </nav>
+
+      {/* Mobile Navigation */}
+      {isOpen && (
+        <div className="md:hidden mt-2 rounded-2xl border border-border/50 bg-card/90 backdrop-blur-xl p-3">
+          <div className="flex flex-col gap-1">
+            {navLinks.map((link) =>
+              link.external ? (
+                <a
+                  key={link.label}
+                  href={link.to}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsOpen(false)}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors py-2.5 px-4 rounded-xl text-center"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.label}
+                  to={link.to}
+                  onClick={() => setIsOpen(false)}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors py-2.5 px-4 rounded-xl text-center"
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
+          </div>
+        </div>
+      )}
+    </header>
+  );
+};
+
+export default Navbar;
