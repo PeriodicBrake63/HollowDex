@@ -1,0 +1,89 @@
+{
+  "totalCommands": 10,
+  "categories": [
+    {
+      "name": "Core",
+      "icon": "Settings",
+      "commands": [
+        { 
+          "name": "start", 
+          "description": "Initializes your profile, gives a starter enemy, and sets up your collection",
+          "arguments": [],
+          "permissions": []
+        },
+        { 
+          "name": "profile", 
+          "description": "Shows your Discord profile stats including enemies collected, wins/losses, and currency",
+          "arguments": ["user"],
+          "permissions": []
+        }
+      ]
+    },
+    {
+      "name": "Collection",
+      "icon": "ListMusic",
+      "commands": [
+        { 
+          "name": "hunt", 
+          "description": "Finds a random enemy. Encounters vary by rarity from common to boss",
+          "arguments": [],
+          "permissions": []
+        },
+        { 
+          "name": "capture", 
+          "description": "Attempts to capture the encountered enemy. Success depends on rarity and items",
+          "arguments": [],
+          "permissions": []
+        },
+        { 
+          "name": "collection", 
+          "description": "View all collected enemies with filters by area, rarity, and type",
+          "arguments": ["filter", "sort"],
+          "permissions": []
+        },
+        { 
+          "name": "enemy", 
+          "description": "Displays an enemy card with image, ability, stats, and lore",
+          "arguments": ["enemy"],
+          "permissions": []
+        }
+      ]
+    },
+    {
+      "name": "Info",
+      "icon": "Info",
+      "commands": [
+        { 
+          "name": "help", 
+          "description": "Shows a list of all available commands and how to use them",
+          "arguments": ["command"],
+          "permissions": []
+        },
+        { 
+          "name": "stats", 
+          "description": "View global bot statistics and leaderboards",
+          "arguments": [],
+          "permissions": []
+        }
+      ]
+    },
+    {
+      "name": "Settings",
+      "icon": "Sliders",
+      "commands": [
+        { 
+          "name": "config", 
+          "description": "Configure server-specific settings for the bot",
+          "arguments": ["setting", "value"],
+          "permissions": ["Administrator"]
+        },
+        { 
+          "name": "notifications", 
+          "description": "Toggle notifications for hunts, captures, and events",
+          "arguments": ["type"],
+          "permissions": []
+        }
+      ]
+    }
+  ]
+}
