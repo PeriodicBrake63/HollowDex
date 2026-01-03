@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import heroBackground from "@/assets/hero-background.webp";
 import { usePageTitle } from "@/hooks/usePageTitle";
 
-const DISCORD_OAUTH_URL = "https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID";
+const DISCORD_OAUTH_URL = "https://discord.com/oauth2/authorize?client_id=1455565970784518278&permissions=5086480645868608&integration_type=0&scope=bot+applications.commands";
 
 const useScrollAnimation = (direction: 'left' | 'right' | 'up' = 'up') => {
   const ref = useRef<HTMLDivElement>(null);

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/hollowdex-logo.webp";
 
-const DISCORD_OAUTH_URL = "https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID";
+const DISCORD_OAUTH_URL = "https://discord.com/oauth2/authorize?client_id=1455565970784518278&permissions=5086480645868608&integration_type=0&scope=bot+applications.commands";
 const VOTE_URL = "https://top.gg/bot/hollowdex/vote";
 const DISCORD_URL = "https://discord.gg/hollowdex";
 
