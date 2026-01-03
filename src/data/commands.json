@@ -1,5 +1,5 @@
 {
-  "totalCommands": 10,
+  "totalCommands": 11,
   "categories": [
     {
       "name": "Core",
@@ -24,26 +24,32 @@
       "icon": "ListMusic",
       "commands": [
         { 
-          "name": "hunt", 
-          "description": "Finds a random enemy. Encounters vary by rarity from common to boss",
-          "arguments": [],
-          "permissions": []
-        },
-        { 
-          "name": "capture", 
-          "description": "Attempts to capture the encountered enemy. Success depends on rarity and items",
-          "arguments": [],
-          "permissions": []
-        },
-        { 
-          "name": "collection", 
+          "name": "enemy collection", 
           "description": "View all collected enemies with filters by area, rarity, and type",
           "arguments": ["filter", "sort"],
           "permissions": []
         },
         { 
-          "name": "enemy", 
+          "name": "enemy info", 
           "description": "Displays an enemy card with image, ability, stats, and lore",
+          "arguments": ["enemy"],
+          "permissions": []
+        },
+        { 
+          "name": "trade", 
+          "description": "Engages a trade with another user to exchange enemies",
+          "arguments": ["user"],
+          "permissions": []
+        },
+        {
+          "name": "fight", 
+          "description": "Starts a fight against another user",
+          "arguments": ["user", "amount", "duplicates"],
+          "permissions": []
+        },
+        { 
+          "name": "sell", 
+          "description": "Sells an enemy from your collection for in-game currency",
           "arguments": ["enemy"],
           "permissions": []
         }
@@ -72,15 +78,15 @@
       "icon": "Sliders",
       "commands": [
         { 
-          "name": "config", 
-          "description": "Configure server-specific settings for the bot",
-          "arguments": ["setting", "value"],
+          "name": "config server", 
+          "description": "Opens the server settings panel for the bot",
+          "arguments": [],
           "permissions": ["Administrator"]
         },
         { 
-          "name": "notifications", 
-          "description": "Toggle notifications for hunts, captures, and events",
-          "arguments": ["type"],
+          "name": "config player", 
+          "description": "Opens the player settings panel for personal preferences",
+          "arguments": [],
           "permissions": []
         }
       ]
