@@ -3,6 +3,7 @@ from discord.ext import commands
 import asyncio
 import json
 from ..Client import client
+from autocompletion import *
 
 @client.tree.command(
     name="trade begin",
@@ -11,7 +12,7 @@ from ..Client import client
 @discord.app_commands.describe(
     usr="user you want to trade with"
 )
-async def trade(interaction: discord.Interaction, usr: discord.user):
+async def trade_begin(interaction: discord.Interaction, usr: discord.user):
     await interaction.response.send_message(f"trade started with {usr.name}")
 
 @client.tree.command(
@@ -19,5 +20,10 @@ async def trade(interaction: discord.Interaction, usr: discord.user):
     description="Adds an enemy to the current trade"
 )
 @discord.app_commands.describe(
-    usr="user you want to trade with"
+    enemy="enemy you want to add to the ongoing trade"
 )
+@discord.app_commands.autocomplete(
+    enemy=enemy_autocomplete()
+)
+async def trade_add(interaction: discord.Interaction, enemy: str):
+    await interaction.response.send_message(f"enemy '{enemy}' added to the ongoing trade")
