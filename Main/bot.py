@@ -34,11 +34,23 @@ client = MyClient()
 )
 async def ping(interaction: discord.Interaction):
     await interaction.response.send_message("🏓 Pong!")
+    
+@client.tree.command(
+    name="trade",
+    description="Starts a trade with another user"
+)
+@discord.app_commands.describe(
+    usr="user you want to trade with"
+)
+async def trade(
+    interaction: discord.Interaction,
+    usr: discord.user
+):
+    await interaction.response.send_message(f"trade started with {usr.name}")
 
 @client.tree.command(
     name="card",
-    description="Checks a certain card",
-    guild=discord.Object(id=ENV_V.GUILD_ID)
+    description="Checks a certain card"
 )
 @discord.app_commands.describe(
     name="name of the card"
