@@ -1,5 +1,5 @@
 import discord
-from discord.ext import app_commands
+from discord import app_commands
 import json
 
 with open("/home/container/Main/DATABASE/PlayerBase.json", "r") as f:
