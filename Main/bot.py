@@ -42,10 +42,7 @@ async def ping(interaction: discord.Interaction):
 @discord.app_commands.describe(
     usr="user you want to trade with"
 )
-async def trade(
-    interaction: discord.Interaction,
-    usr: discord.user
-):
+async def trade(interaction: discord.Interaction, usr: discord.user):
     await interaction.response.send_message(f"trade started with {usr.name}")
 
 @client.tree.command(
