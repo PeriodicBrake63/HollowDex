@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import asyncio
 import json
-from ..Client import client
+from Client import client
 import autocompletion as ac
 
 @client.tree.command(
