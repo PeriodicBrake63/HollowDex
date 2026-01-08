@@ -11,9 +11,7 @@ class MyClient(discord.Client):
         self.tree = discord.app_commands.CommandTree(self)
 
     async def setup_hook(self):
-        guild = discord.Object(id=ENV_V.GUILD_ID)
-        self.tree.copy_global_to(guild=guild)
-        await self.tree.sync(guild=guild)
-        print("Guild commands synced!")
+        await self.tree.sync()
+        print("Global commands synced!")
 
 client = MyClient()
