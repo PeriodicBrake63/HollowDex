@@ -11,7 +11,7 @@ from .autocompletion import user_autocomplete, enemy_autocomplete
     usr="user you want to trade with"
 )
 @discord.app_commands.autocomplete(
-    usr=user_autocomplete()
+    usr=user_autocomplete
 )
 async def trade_begin(interaction: discord.Interaction, usr: discord.user):
     await interaction.response.send_message(f"trade started with {usr.name}")
@@ -24,7 +24,7 @@ async def trade_begin(interaction: discord.Interaction, usr: discord.user):
     enemy="enemy you want to add to the ongoing trade"
 )
 @discord.app_commands.autocomplete(
-    enemy=enemy_autocomplete()
+    enemy=enemy_autocomplete
 )
 async def trade_add(interaction: discord.Interaction, enemy: str):
     await interaction.response.send_message(f"enemy '{enemy}' added to the ongoing trade")
