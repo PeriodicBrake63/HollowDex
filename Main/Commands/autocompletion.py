@@ -13,7 +13,8 @@ async def user_autocomplete(interaction: discord.Interaction, current: str):
     ][:25]
 
 
-async def enemy_autocomplete(interaction: discord.Interaction, current: str, cuserid):
+async def enemy_autocomplete(interaction: discord.Interaction, current: str):
+    cuserid = interaction.user.id
     choices = []
     for idx, PlayerEnemy in enumerate(PlayerBase[cuserid]["enemies"]):
         choices.append(f'{PlayerEnemy["enemyName"]}, ATK: {PlayerEnemy["atkMod"]}%, DEF: {PlayerEnemy["defMod"]}% #{idx:06X}')
