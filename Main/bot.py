@@ -36,7 +36,7 @@ async def ping(interaction: discord.Interaction):
     await interaction.response.send_message("🏓 Pong!")
     
 @client.tree.command(
-    name="trade",
+    name="trade begin",
     description="Starts a trade with another user"
 )
 @discord.app_commands.describe(
