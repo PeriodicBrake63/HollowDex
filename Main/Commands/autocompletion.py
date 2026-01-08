@@ -2,7 +2,7 @@ import discord
 from discord.ext import app_commands
 import json
 
-with open("../DATABASE/PlayerBase.json", "r") as f:
+with open("/home/container/Main/DATABASE/PlayerBase.json", "r") as f:
     PlayerBase = json.load(f)
 
 async def user_autocomplete(interaction: discord.Interaction, current: str):
