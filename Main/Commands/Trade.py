@@ -6,7 +6,7 @@ from .autocompletion import enemy_autocomplete
 
 trade = app_commands.Group(name="trade", description="Trade commands")
 
-@client.tree.command(
+@trade.command(
     name="begin",
     description="Starts a trade with another user"
 )
@@ -16,7 +16,7 @@ trade = app_commands.Group(name="trade", description="Trade commands")
 async def trade_begin(interaction: discord.Interaction, usr: discord.User):
     await interaction.response.send_message(f"trade started with {usr.name}")
 
-@client.tree.command(
+@trade.command(
     name="add",
     description="Adds an enemy to the current trade"
 )
