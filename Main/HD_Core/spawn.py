@@ -1,3 +1,6 @@
+import os
+print(os.getcwd())
+
 from .Commands.Client import client
 import discord
 import asyncio
