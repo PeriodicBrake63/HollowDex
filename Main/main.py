@@ -1,9 +1,9 @@
 import os
 import json
 import variables as ENV_V
-from Commands.Client import client
-from Commands.Trade import *
-from Commands.Player import *
+from HD_Core.Commands.Client import client
+from HD_Core.Commands.Trade import *
+from HD_Core.Commands.Player import *
 from HD_Core.spawn import on_message
 
 @client.event

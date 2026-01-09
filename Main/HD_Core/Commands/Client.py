@@ -1,7 +1,6 @@
 import discord
 from discord import app_commands
 import asyncio
-import variables as ENV_V
 
 class MyClient(discord.Client):
     def __init__(self):
