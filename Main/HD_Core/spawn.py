@@ -1,4 +1,4 @@
-from Commands.Client import client
+from .Commands.Client import client
 import discord
 import asyncio
 import random
