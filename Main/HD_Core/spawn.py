@@ -7,6 +7,8 @@ import random
 import json
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+AS_DIR = os.path.join(BASE_DIR, "assets")
+EN_DIR = os.path.join(AS_DIR, "enemies")
 DB_DIR = os.path.join(BASE_DIR, "DATABASE")
 
 def _load_json(fname):
@@ -19,8 +21,10 @@ def _load_json(fname):
 server_base = _load_json("ServerBase.json")
 enemy_list = _load_json("Enemylist.json")
 
-with open("/home/container/Main/DATABASE/Enemylist.json", "r") as f:
-    enemy_list = json.load(f)
+class catch_btn(discord.ui.View):
+    @discord.ui.button(label="Click me", style=discord.ButtonStyle.primary)
+    async def button_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_message("Bouton cliqué 😏", ephemeral=True)
 
 @client.event
 async def on_message(message: discord.Message):
@@ -32,17 +36,11 @@ async def on_message(message: discord.Message):
         cfg = server_base.get(str(message.guild.id))
         if not cfg:
             return
-        if random.randint(1, 100) <= 5:
-<<<<<<< HEAD
+        if random.randint(1, 100) <= 1:
             items = list(enemy_list.values())
             weights = [1 / item["rarity"] for item in items]
-
             chosen = random.choices(items, weights=weights, k=1)[0]
-            path = chosen["path"]
-            await message.guild.get_channel(server_base[str(message.guild.id)]["spawn_channel_id"]).send(
-                embed=discord.Embed().set_image(url="https://i.imgur.com/3ZQ3Z6L.png")
-            )
-=======
+            img_path = os.path.join(EN_DIR, chosen["category"], f"{chosen['name']}.png")
             enemy_key = random.choice(list(enemy_list.keys())) if enemy_list else None
             if enemy_key:
                 spec = enemy_list[enemy_key]
@@ -51,7 +49,6 @@ async def on_message(message: discord.Message):
                 msg = "You feel a sudden chill run down your spine..."
             channel = message.guild.get_channel(cfg.get("spawn_channel_id"))
             if channel:
-                await channel.send(msg)
+                await channel.send(msg, discord.File(img_path))
     except Exception:
         return
->>>>>>> ae9a9fd (enemy inspect command and first enemy spawning)
