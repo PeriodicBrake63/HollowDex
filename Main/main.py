@@ -4,6 +4,7 @@ import variables as ENV_V
 from Commands.Client import client
 from Commands.Trade import *
 from Commands.Player import *
+from HD_Core.spawn import on_message
 
 @client.event
 async def on_ready():
