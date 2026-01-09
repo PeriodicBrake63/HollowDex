@@ -4,6 +4,7 @@ import variables as ENV_V
 from HD_Core.Commands.Client import client
 from HD_Core.Commands.Trade import *
 from HD_Core.Commands.Player import *
+from HD_Core.Commands.Enemy import *
 from HD_Core.spawn import on_message
 
 @client.event
