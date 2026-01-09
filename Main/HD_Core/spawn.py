@@ -16,4 +16,4 @@ async def on_message(message: discord.Message):
         return
     else:
         if random.randint(1, 100) <= 5:
-            await message.guild.get_channel(server_base[message.guild.id]["spawn_channel_id"]).send("You feel a sudden chill run down your spine...")
+            await message.guild.get_channel(server_base[str(message.guild.id)]["spawn_channel_id"]).send("You feel a sudden chill run down your spine...")
