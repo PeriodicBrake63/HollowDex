@@ -7,7 +7,7 @@ import asyncio
 import random
 import json
 
-with open("/home/container/Main/DATABASE/ServerBase.json") as f:
+with open("/home/container/Main/DATABASE/ServerBase.json", "r") as f:
     server_base = json.load(f)
 
 @client.event
