@@ -1,8 +1,23 @@
 from PIL import Image, ImageDraw, ImageFont
+import os
 
 def compile_card(specs, output_path):
     base_path = "assets/background/" + specs["category"] + ".png"
-    enemy_path = "assets/enemies/" + specs["category"] + "/" + specs["name"] + ".png"   
+    enemy_dir = os.path.join("assets", "enemies", specs["category"])
+    enemy_path = None
+    try:
+        want = str(specs.get("name", "")).lower().replace(" ", "")
+        for fname in os.listdir(enemy_dir):
+            if not fname.lower().endswith('.png'):
+                continue
+            fnorm = fname.lower().replace(" ", "")
+            if fnorm.startswith(want) or want in fnorm:
+                enemy_path = os.path.join(enemy_dir, fname)
+                break
+    except Exception:
+        enemy_path = None
+    if not enemy_path:
+        enemy_path = os.path.join(enemy_dir, str(specs.get("name", "")) + ".png")
     overlay = Image.open(enemy_path).convert("RGBA")
     name = specs["name"]
     health = str(specs["health"])

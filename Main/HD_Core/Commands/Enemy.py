@@ -26,12 +26,22 @@ enemy = app_commands.Group(name="enemy", description="Enemy-related commands")
     query="enemy key or display name"
 )
 async def enemy_inspect(interaction: discord.Interaction, query: str):
-    q = query.lower()
+    q = query.lower().strip()
+    if "," in q:
+        q = q.split(",", 1)[0].strip()
+    if "#" in q:
+        q = q.split("#", 1)[0].strip()
+    q = q.replace("enemy ", "").strip()
     found = None
     for key, spec in EnemyList.items():
         if key.lower() == q or str(spec.get("name", "")).lower() == q:
             found = (key, spec)
             break
+    if not found:
+        for key, spec in EnemyList.items():
+            if q in key.lower() or q in str(spec.get("name", "")).lower():
+                found = (key, spec)
+                break
     if not found:
         await interaction.response.send_message(f"Enemy '{query}' not found.")
         return
@@ -54,10 +64,12 @@ async def enemy_inspect(interaction: discord.Interaction, query: str):
             card_compiler.compile_card(spec, out_path)
             if os.path.isfile(out_path):
                 img_file = out_path
-        except Exception:
+        except Exception as e:
             img_file = None
-    except Exception:
+            print(e)
+    except Exception as e:
         img_file = None
+        print(e)
     embed = discord.Embed(title=name, description=" | ".join(desc_parts))
     if img_file and os.path.isfile(img_file):
         try:
