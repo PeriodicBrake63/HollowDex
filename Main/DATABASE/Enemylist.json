@@ -4,28 +4,32 @@
         "category": "forgotten_crossroads",
         "health": 80,
         "attack": 25,
-        "ability": 0
+        "ability": 0,
+        "rarity": 0.1
     },
     "tiktik": {
         "name": "Tiktik",
         "category": "forgotten_crossroads",
         "health": 80,
         "attack": 20,
-        "ability": 0
+        "ability": 0,
+        "rarity": 0.1
     },
     "vengefly": {
         "name": "Vengefly",
         "category": "forgotten_crossroads",
         "health": 80,
         "attack": 30,
-        "ability": 0
+        "ability": 0,
+        "rarity": 0.1
     },
     "gruzzer": {
         "name": "Gruzzer",
         "category": "forgotten_crossroads",
         "health": 100,
         "attack": 35,
-        "ability": 0
+        "ability": 0,
+        "rarity": 0.15
     },
     "vengefly king": {
         "name": "Vengefly King",
@@ -36,6 +40,7 @@
             "type": "summon",
             "summons": "vengefly",
             "count": 2
-        }
+        },
+        "rarity": 0.5
     }
 }
