@@ -1,2 +1,11 @@
 ## 1. Core
-> 
+- Main server entrypoint: Implement `main.py` startup and server loop.
+- Command dispatcher & parser: Centralize command routing (`Main/Commands/`).
+- Player management: Player state, authentication, and session handling.
+- Enemy spawn system: Implement `HD_Core/spawn.py` behaviours and spawns.
+- Trading system: Implement `Commands/Trade.py` rules and persistence.
+- Card compiler & assets: Finish `card_compiler.py` and asset pipeline.
+- Autocompletion & CLI UX: Improve `Commands/autocompletion.py` and UX.
+- Database persistence: Read/write `DATABASE/*.json` and migration tools.
+- Overlays & UI rendering: `overlays_testing.py` and template assets.
+- Tests & CI: Add unit tests, linting, and CI workflow.
