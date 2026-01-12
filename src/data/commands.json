@@ -1,21 +1,21 @@
 {
-  "totalCommands": 11,
+  "totalCommands": 8,
   "categories": [
     {
       "name": "Core",
       "icon": "Settings",
       "commands": [
         { 
-          "name": "start", 
-          "description": "Initializes your profile, gives a starter enemy, and sets up your collection",
+          "name": "player", 
+          "description": "subcommands: Init, Reset, Config",
           "arguments": [],
           "permissions": []
         },
         { 
-          "name": "profile", 
-          "description": "Shows your Discord profile stats including enemies collected, wins/losses, and currency",
-          "arguments": ["user"],
-          "permissions": []
+          "name": "server", 
+          "description": "subcommands: SpawnCh, Config",
+          "arguments": [],
+          "permissions": ["Administrator"]
         }
       ]
     },
@@ -24,33 +24,27 @@
       "icon": "ListMusic",
       "commands": [
         { 
-          "name": "enemy collection", 
-          "description": "View all collected enemies with filters by area, rarity, and type",
-          "arguments": ["filter", "sort"],
-          "permissions": []
-        },
-        { 
-          "name": "enemy info", 
-          "description": "Displays an enemy card with image, ability, stats, and lore",
-          "arguments": ["enemy"],
+          "name": "enemy", 
+          "description": "subcommands: inspect, sell, list, completion",
+          "arguments": [],
           "permissions": []
         },
         { 
           "name": "trade", 
-          "description": "Engages a trade with another user to exchange enemies",
-          "arguments": ["user"],
+          "description": "subcommands: begin, add, remove",
+          "arguments": [],
+          "permissions": []
+        },
+        { 
+          "name": "gift", 
+          "description": "sends a gift to a user",
+          "arguments": ["enemy", "user"],
           "permissions": []
         },
         {
           "name": "fight", 
-          "description": "Starts a fight against another user",
-          "arguments": ["user", "amount", "duplicates"],
-          "permissions": []
-        },
-        { 
-          "name": "sell", 
-          "description": "Sells an enemy from your collection for in-game currency",
-          "arguments": ["enemy"],
+          "description": "subcommands: begin, add, remove",
+          "arguments": [],
           "permissions": []
         }
       ]
@@ -68,24 +62,6 @@
         { 
           "name": "stats", 
           "description": "View global bot statistics and leaderboards",
-          "arguments": [],
-          "permissions": []
-        }
-      ]
-    },
-    {
-      "name": "Settings",
-      "icon": "Sliders",
-      "commands": [
-        { 
-          "name": "config server", 
-          "description": "Opens the server settings panel for the bot",
-          "arguments": [],
-          "permissions": ["Administrator"]
-        },
-        { 
-          "name": "config player", 
-          "description": "Opens the player settings panel for personal preferences",
           "arguments": [],
           "permissions": []
         }
