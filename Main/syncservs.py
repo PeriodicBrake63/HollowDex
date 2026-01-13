@@ -1,10 +1,18 @@
-import json
-import os
+import subprocess
 from HD_Core.Commands.Client import client
 import asyncio
+import os
+
+REPO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 async def resyncServs():
-    print("*pretend i synced your DBs*")
+    for i in client.guilds:
+        if not str(i.id) in client.ServerBase:
+            client.ServerBase[str(i.id)] = {
+                "spawn_ch":None,
+                "disabled":True
+            }
+    subprocess.run(["git", "add", "."], cwd=REPO_DIR)
 
 async def backup_loop():
     while True:
