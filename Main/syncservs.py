@@ -1,7 +1,7 @@
-import subprocess
 from HD_Core.Commands.Client import client
 import asyncio
 import os
+import json
 
 REPO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
@@ -22,6 +22,10 @@ async def resyncServs():
                 "spawn_ch":None,
                 "disabled":True
             }
+    with open(os.path.join(REPO_DIR, "Main/DATABASE/ServerBase.json"), "w") as f:
+        json.dump(client.ServerBase, f, indent=2)
+    with open(os.path.join(REPO_DIR, "Main/DATABASE/PlayerBase.json"), "w") as f:
+        json.dump(client.PlayerBase, f, indent=2)
     await git_sync()
 
 async def backup_loop():
