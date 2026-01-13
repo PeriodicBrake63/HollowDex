@@ -17,9 +17,9 @@ class MyClient(discord.Client):
         self.PlayerBase = {}
 
         with open(os.path.join(DB_DIR, "ServerBase.json"), "r") as f:
-            self.ServerBase = json.read(f)
+            self.ServerBase = json.load(f)
         with open(os.path.join(DB_DIR, "PlayerBase.json"), "r") as f:
-            self.PlayerBase = json.read(f)
+            self.PlayerBase = json.load(f)
 
     async def setup_hook(self):
         await self.tree.sync()
