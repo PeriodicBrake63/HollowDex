@@ -14,7 +14,7 @@ async function gitSync(): Promise<void> {
 
     try {
         await execAsync('git add .', { cwd });
-        await execAsync('git commit -m "changed by @laxenta"', { cwd });
+        await execAsync('git commit -m "major changes by @laxenta"', { cwd });
         await execAsync('git pull', { cwd });
         await execAsync('git push', { cwd });
     } catch (error) {
