@@ -1,6 +1,6 @@
 {
   "953527567808356404": {
-    "xp": 0,
+    "xp": 15,
     "enemies": [
       {
         "id": "201ecbf2-fa49-427c-b6de-20b1480eb01d",
@@ -22,6 +22,20 @@
         "nickname": null,
         "xp": 0,
         "capturedAt": "2026-01-15T13:09:02.678Z"
+      },
+      {
+        "id": "347222fb-d8b0-422c-9a28-689e1554888e",
+        "enemyKey": "check_only",
+        "nickname": null,
+        "xp": 0,
+        "capturedAt": "2026-01-15T13:35:18.266Z"
+      },
+      {
+        "id": "210eddc8-cc13-4a3a-adf6-21d4ec055a5f",
+        "enemyKey": "gruzzer",
+        "nickname": null,
+        "xp": 0,
+        "capturedAt": "2026-01-15T13:35:18.269Z"
       }
     ]
   }
