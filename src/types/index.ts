@@ -104,3 +104,12 @@ export interface TradeSession {
     targetConfirmed: boolean;
     createdAt: Date;
 }
+
+/**
+ * Command interface
+ */
+export interface Command {
+    data: any; // Using any for builder to avoid complex type dependencies here
+    execute: (interaction: any) => Promise<void>;
+    autocomplete?: (interaction: any) => Promise<void>;
+}

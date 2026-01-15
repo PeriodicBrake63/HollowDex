@@ -2,22 +2,8 @@ import { Events, Interaction, ChatInputCommandInteraction, AutocompleteInteracti
 import { activeSpawns } from './messageCreate';
 import { attemptCatch, addEnemyToCollection } from '../utils/playerUtils';
 import { loadEnemyList as loadDbEnemyList } from '../utils/database';
-
-// Import commands
-import * as enemyCommand from '../commands/enemy';
-import * as playerCommand from '../commands/player';
-import * as tradeCommand from '../commands/trade';
-
-interface Command {
-    execute: (interaction: ChatInputCommandInteraction) => Promise<void>;
-    autocomplete?: (interaction: AutocompleteInteraction) => Promise<void>;
-}
-
-const commands = new Map<string, Command>([
-    ['enemy', enemyCommand],
-    ['player', playerCommand],
-    ['trade', tradeCommand],
-]);
+import { client } from '../client';
+import { Command } from '../types';
 
 const enemyList = loadDbEnemyList();
 
@@ -41,7 +27,7 @@ export async function execute(interaction: Interaction): Promise<void> {
 
     // Handle slash commands
     if (interaction.isChatInputCommand()) {
-        const command = commands.get(interaction.commandName);
+        const command = client.commands.get(interaction.commandName);
 
         if (!command) {
             console.error(`No command matching ${interaction.commandName} was found.`);
@@ -65,7 +51,7 @@ export async function execute(interaction: Interaction): Promise<void> {
 
     // Handle autocomplete
     if (interaction.isAutocomplete()) {
-        const command = commands.get(interaction.commandName);
+        const command = client.commands.get(interaction.commandName);
 
         if (!command || !command.autocomplete) {
             return;

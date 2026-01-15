@@ -1,49 +1,11 @@
-import { REST, Routes } from 'discord.js';
 import { config } from './config';
 import { client } from './client';
-
-// Import commands
-import * as enemyCommand from './commands/enemy';
-import * as playerCommand from './commands/player';
-import * as tradeCommand from './commands/trade';
+import { loadCommands, registerCommandsIfChanged } from './utils/commandLoader';
 
 // Import events
 import * as readyEvent from './events/ready';
 import * as messageCreateEvent from './events/messageCreate';
 import * as interactionCreateEvent from './events/interactionCreate';
-
-const commands = [
-    enemyCommand.data.toJSON(),
-    playerCommand.data.toJSON(),
-    tradeCommand.data.toJSON(),
-];
-
-/**
- * Register slash commands with Discord
- */
-async function registerCommands(): Promise<void> {
-    const rest = new REST().setToken(config.token);
-
-    try {
-        console.log(`Started refreshing ${commands.length} application (/) commands.`);
-
-        // Register commands globally
-        const data = await rest.put(
-            Routes.applicationCommands(client.application!.id),
-            { body: commands }
-        ) as unknown[];
-
-        console.log(`Successfully reloaded ${data.length} application (/) commands.`);
-
-        // Log registered commands
-        console.log('Synced commands:');
-        for (const cmd of commands) {
-            console.log(`- ${cmd.name}: ${cmd.description}`);
-        }
-    } catch (error) {
-        console.error('Error registering commands:', error);
-    }
-}
 
 /**
  * Register event handlers
@@ -53,7 +15,9 @@ function registerEvents(): void {
     if (readyEvent.once) {
         client.once(readyEvent.name, async (...args) => {
             await readyEvent.execute();
-            await registerCommands();
+            // Commands are now registered in main() before login or during init, 
+            // but we can also trigger a check here if we want to ensure client is ready.
+            // However, with the new loader, we can do it independently.
         });
     }
 
@@ -70,11 +34,34 @@ function registerEvents(): void {
 async function main(): Promise<void> {
     console.log('Starting HollowDex bot...');
 
+    // Load commands
+    const commands = await loadCommands();
+    console.log(`Loaded ${commands.length} commands.`);
+
+    // Attach commands to client for interaction handler
+    (client as any).commands = new Map();
+    for (const cmd of commands) {
+        (client as any).commands.set(cmd.data.name, cmd);
+    }
+
     // Register event handlers
     registerEvents();
 
     // Login to Discord
     await client.login(config.token);
+
+    // Register commands if changed (after login to ensure we have application ID)
+    // We need to wait for client to be ready to get application ID, 
+    // OR we can rely on the ready event.
+    // Let's do it in the ready handler ideally, or wait here.
+    // Waiting here is tricky because login is async but doesn't resolve with ready.
+    // Let's move registration to the ready event or a separate init function.
+
+    // Actually, client.application is available after ready.
+    // Let's use the ready event for registration safety.
+    client.once('ready', async () => {
+        await registerCommandsIfChanged(commands);
+    });
 }
 
 // Run the bot

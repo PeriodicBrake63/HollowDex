@@ -1,6 +1,6 @@
-import { Client, GatewayIntentBits, Collection } from 'discord.js';
+import { Client, GatewayIntentBits, Collection, Partials } from 'discord.js';
 import { loadServerBase, loadPlayerBase } from './utils/database';
-import { ServerBase, PlayerBase } from './types';
+import { ServerBase, PlayerBase, Command } from './types';
 
 /**
  * Extended Discord client with database properties
@@ -8,7 +8,7 @@ import { ServerBase, PlayerBase } from './types';
 export class HollowDexClient extends Client {
     public serverBase: ServerBase;
     public playerBase: PlayerBase;
-    public commands: Collection<string, unknown>;
+    public commands: Collection<string, Command>;
 
     constructor() {
         super({
