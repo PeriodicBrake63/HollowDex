@@ -5,7 +5,7 @@ const DISCORD_URL = "https://discord.gg/hollowdex";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border/30 bg-surface-dark/50">
+    <footer className="border-t border-border/30 bg-card/50 backdrop-blur-sm">
       <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8 md:py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {/* Logo & Description */}
@@ -15,7 +15,7 @@ const Footer = () => {
               <span className="font-semibold text-lg md:text-xl text-foreground">HollowDex</span>
             </div>
             <p className="text-muted-foreground text-xs md:text-sm leading-relaxed">
-              A Hollow Knight inspired Discord bot where you hunt, collect, and catalog 
+              A Hollow Knight inspired Discord bot where you hunt, collect, and catalog
               illustrated enemy creatures.
             </p>
           </div>
