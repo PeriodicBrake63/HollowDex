@@ -130,7 +130,11 @@ async function handleBegin(interaction) {
     setTimeout(() => {
         if (activeTrades.has(tradeId)) {
             activeTrades.delete(tradeId);
-            interaction.channel?.send(`Trade between ${interaction.user} and ${targetUser} timed out.`);
+            if (interaction.channel && 'send' in interaction.channel) {
+                // We know it has send, but TS needs assertion or better check
+                // For simplicity in this non-intrusive edit
+                interaction.channel.send(`Trade between ${interaction.user} and ${targetUser} timed out.`);
+            }
         }
     }, 5 * 60 * 1000);
 }
@@ -164,7 +168,9 @@ async function handleAdd(interaction) {
     session.targetConfirmed = false;
     await interaction.reply({ content: `Added ${enemyList[enemy.enemyKey]?.name || enemy.enemyKey} to trade.`, ephemeral: true });
     // Notify channel
-    await interaction.channel?.send(`Trade updated: ${interaction.user.username} added an item.`);
+    if (interaction.channel && 'send' in interaction.channel) {
+        interaction.channel.send(`Trade updated: ${interaction.user.username} added an item.`);
+    }
 }
 /**
  * Handle /trade confirm
@@ -236,7 +242,9 @@ async function executeTrade(tradeId, session, interaction) {
         .setTitle('Trade Complete!')
         .setDescription('The trade was successful.')
         .setColor(0x00FF00);
-    await interaction.channel?.send({ embeds: [embed] });
+    if (interaction.channel && 'send' in interaction.channel) {
+        await interaction.channel.send({ embeds: [embed] });
+    }
 }
 exports.default = { data: exports.data, execute, autocomplete };
 //# sourceMappingURL=trade.js.map
