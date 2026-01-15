@@ -1,12 +1,12 @@
 import { Client, Collection } from 'discord.js';
-import { ServerBase, PlayerBase } from './types';
+import { ServerBase, PlayerBase, Command } from './types';
 /**
  * Extended Discord client with database properties
  */
 export declare class HollowDexClient extends Client {
     serverBase: ServerBase;
     playerBase: PlayerBase;
-    commands: Collection<string, unknown>;
+    commands: Collection<string, Command>;
     constructor();
     /**
      * Reload database from files

@@ -33,42 +33,13 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-const discord_js_1 = require("discord.js");
 const config_1 = require("./config");
 const client_1 = require("./client");
-// Import commands
-const enemyCommand = __importStar(require("./commands/enemy"));
-const playerCommand = __importStar(require("./commands/player"));
-const tradeCommand = __importStar(require("./commands/trade"));
+const commandLoader_1 = require("./utils/commandLoader");
 // Import events
 const readyEvent = __importStar(require("./events/ready"));
 const messageCreateEvent = __importStar(require("./events/messageCreate"));
 const interactionCreateEvent = __importStar(require("./events/interactionCreate"));
-const commands = [
-    enemyCommand.data.toJSON(),
-    playerCommand.data.toJSON(),
-    tradeCommand.data.toJSON(),
-];
-/**
- * Register slash commands with Discord
- */
-async function registerCommands() {
-    const rest = new discord_js_1.REST().setToken(config_1.config.token);
-    try {
-        console.log(`Started refreshing ${commands.length} application (/) commands.`);
-        // Register commands globally
-        const data = await rest.put(discord_js_1.Routes.applicationCommands(client_1.client.application.id), { body: commands });
-        console.log(`Successfully reloaded ${data.length} application (/) commands.`);
-        // Log registered commands
-        console.log('Synced commands:');
-        for (const cmd of commands) {
-            console.log(`- ${cmd.name}: ${cmd.description}`);
-        }
-    }
-    catch (error) {
-        console.error('Error registering commands:', error);
-    }
-}
 /**
  * Register event handlers
  */
@@ -77,7 +48,9 @@ function registerEvents() {
     if (readyEvent.once) {
         client_1.client.once(readyEvent.name, async (...args) => {
             await readyEvent.execute();
-            await registerCommands();
+            // Commands are now registered in main() before login or during init, 
+            // but we can also trigger a check here if we want to ensure client is ready.
+            // However, with the new loader, we can do it independently.
         });
     }
     // Message create event
@@ -90,10 +63,29 @@ function registerEvents() {
  */
 async function main() {
     console.log('Starting HollowDex bot...');
+    // Load commands
+    const commands = await (0, commandLoader_1.loadCommands)();
+    console.log(`Loaded ${commands.length} commands.`);
+    // Attach commands to client for interaction handler
+    client_1.client.commands = new Map();
+    for (const cmd of commands) {
+        client_1.client.commands.set(cmd.data.name, cmd);
+    }
     // Register event handlers
     registerEvents();
     // Login to Discord
     await client_1.client.login(config_1.config.token);
+    // Register commands if changed (after login to ensure we have application ID)
+    // We need to wait for client to be ready to get application ID, 
+    // OR we can rely on the ready event.
+    // Let's do it in the ready handler ideally, or wait here.
+    // Waiting here is tricky because login is async but doesn't resolve with ready.
+    // Let's move registration to the ready event or a separate init function.
+    // Actually, client.application is available after ready.
+    // Let's use the ready event for registration safety.
+    client_1.client.once('ready', async () => {
+        await (0, commandLoader_1.registerCommandsIfChanged)(commands);
+    });
 }
 // Run the bot
 main().catch(console.error);

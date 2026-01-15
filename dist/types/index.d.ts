@@ -93,4 +93,12 @@ export interface TradeSession {
     targetConfirmed: boolean;
     createdAt: Date;
 }
+/**
+ * Command interface
+ */
+export interface Command {
+    data: any;
+    execute: (interaction: any) => Promise<void>;
+    autocomplete?: (interaction: any) => Promise<void>;
+}
 //# sourceMappingURL=index.d.ts.map
