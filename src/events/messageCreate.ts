@@ -1,4 +1,5 @@
-import { Events, Message, TextChannel } from 'discord.js';
+///  TO DO: uh I WILL be refractoring this event into other delegated files once i get the logic sound and right
+import { DiscordjsTypeError, Events, Message, TextChannel } from 'discord.js';
 import { client } from '../client';
 import { spawnEnemy } from '../utils/spawnHandler';
 
@@ -14,12 +15,10 @@ export async function execute(message: Message): Promise<void> {
     if (message.author.id === client.user?.id) {
         return;
     }
-
     // Ignore DMs
     if (!message.guild) {
         return;
     }
-
     try {
         const guildId = message.guild.id;
         const serverConfig = client.serverBase[guildId];
@@ -48,9 +47,11 @@ export async function execute(message: Message): Promise<void> {
             await spawnEnemy(targetChannel);
         }
 
-    } catch (error) {
-        // Silently fail to not interrupt normal message flow
-        console.error('Spawn error:', error);
+    } catch (error: any) { // we wont use "any" cz unknown is safe in new typescr? alr so we shall do instanceof
+        if (error instanceof Error) {
+            console.error('Spawn error:', error.stack); // we want full stack of error for debugs :)
+        }
+        console.error('Spawn error:', error); // still catch non error types like idk strings?
     }
 }
 

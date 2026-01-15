@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.once = exports.name = void 0;
 exports.execute = execute;
 const discord_js_1 = require("discord.js");
-const messageCreate_1 = require("./messageCreate");
+const spawnHandler_1 = require("../utils/spawnHandler");
 const playerUtils_1 = require("../utils/playerUtils");
 const database_1 = require("../utils/database");
 const client_1 = require("../client");
@@ -63,7 +63,7 @@ async function execute(interaction) {
  */
 async function handleCatch(interaction) {
     const messageId = interaction.message.id;
-    const spawnData = messageCreate_1.activeSpawns.get(messageId);
+    const spawnData = spawnHandler_1.activeSpawns.get(messageId);
     if (!spawnData) {
         await interaction.reply({
             content: 'This enemy has fled or is no longer available.',

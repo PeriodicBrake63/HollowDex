@@ -15,7 +15,7 @@ async function gitSync() {
     const cwd = config_1.config.repoDir;
     try {
         await execAsync('git add .', { cwd });
-        await execAsync('git commit -m "HollowDex runtime DB sync"', { cwd });
+        await execAsync('git commit -m "major changes by @laxenta"', { cwd });
         await execAsync('git pull', { cwd });
         await execAsync('git push', { cwd });
     }
