@@ -1,4 +1,4 @@
-# HollowDex
+# HollowDex (Migration init)
 ## Description
 This is an unofficial discord bot for all hollow knight © lovers
 
