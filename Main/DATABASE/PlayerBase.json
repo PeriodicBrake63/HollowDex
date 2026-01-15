@@ -1,6 +1,6 @@
 {
   "953527567808356404": {
-    "xp": 15,
+    "xp": 25,
     "enemies": [
       {
         "id": "201ecbf2-fa49-427c-b6de-20b1480eb01d",
@@ -36,6 +36,20 @@
         "nickname": null,
         "xp": 0,
         "capturedAt": "2026-01-15T13:35:18.269Z"
+      },
+      {
+        "id": "3fa3cce8-8950-4add-a9ac-873a4259bc98",
+        "enemyKey": "check_only",
+        "nickname": null,
+        "xp": 0,
+        "capturedAt": "2026-01-15T13:36:24.009Z"
+      },
+      {
+        "id": "d38f1fba-9910-4038-a49b-fd20e839d0b0",
+        "enemyKey": "crawlid",
+        "nickname": null,
+        "xp": 0,
+        "capturedAt": "2026-01-15T13:36:24.013Z"
       }
     ]
   }
