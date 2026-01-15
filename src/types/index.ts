@@ -47,22 +47,22 @@ export interface ServerBase {
 }
 
 /**
- * Player's captured enemy
+ * Captured enemy instance in player collection
  */
-export interface PlayerEnemy {
-    enemy_name?: string;
-    enemyName?: string;
-    atkMod?: number;
-    atk?: number;
-    defMod?: number;
-    def?: number;
+export interface CapturedEnemy {
+    id: string;              // Unique ID for this specific enemy instance
+    enemyKey: string;        // Key from Enemylist.json
+    nickname: string | null; // Optional custom nickname
+    xp: number;              // Individual enemy XP (unused for now)
+    capturedAt: string;      // ISO timestamp
 }
 
 /**
  * Player data structure
  */
 export interface PlayerData {
-    enemies: PlayerEnemy[];
+    xp: number;
+    enemies: CapturedEnemy[];
 }
 
 /**
@@ -81,4 +81,26 @@ export interface CardSpecs {
     health: number;
     attack: number;
     ability: EnemyAbility | 0;
+}
+
+/**
+ * Active spawn data (in-memory)
+ */
+export interface ActiveSpawn {
+    enemyKey: string;
+    spawnedAt: Date;
+    caughtBy: string | null;
+}
+
+/**
+ * Trade session data (in-memory)
+ */
+export interface TradeSession {
+    initiator: string;
+    target: string;
+    initiatorOffer: string[];  // Enemy IDs
+    targetOffer: string[];     // Enemy IDs
+    initiatorConfirmed: boolean;
+    targetConfirmed: boolean;
+    createdAt: Date;
 }
