@@ -23,9 +23,9 @@ export async function execute(interaction: ChatInputCommandInteraction): Promise
         }
 
         try {
-            await interaction.deferReply({ ephemeral: true }); // Hide the command trigger
-            await spawnEnemy(channel, true); // Force spawn
-            await interaction.editReply({ content: '✅ Forced enemy spawn.' });
+            await interaction.deferReply({ ephemeral: true });
+            await spawnEnemy(channel, true); // rape it to spawn in the channel
+            await interaction.editReply({ content: 'Forced enemy spawn.' });
         } catch (error) {
             console.error('Debug spawn error:', error);
             await interaction.editReply({ content: 'Failed to force spawn.' });
