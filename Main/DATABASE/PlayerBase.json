@@ -1,1 +1,28 @@
-{}
+{
+  "953527567808356404": {
+    "xp": 0,
+    "enemies": [
+      {
+        "id": "201ecbf2-fa49-427c-b6de-20b1480eb01d",
+        "enemyKey": "crawlid",
+        "nickname": null,
+        "xp": 0,
+        "capturedAt": "2026-01-15T13:09:02.678Z"
+      },
+      {
+        "id": "39d16234-fdf3-40d6-872d-d84a78326239",
+        "enemyKey": "crawlid",
+        "nickname": null,
+        "xp": 0,
+        "capturedAt": "2026-01-15T13:09:02.678Z"
+      },
+      {
+        "id": "b671c06d-ca43-4e4d-808c-24729f22ec26",
+        "enemyKey": "crawlid",
+        "nickname": null,
+        "xp": 0,
+        "capturedAt": "2026-01-15T13:09:02.678Z"
+      }
+    ]
+  }
+}
