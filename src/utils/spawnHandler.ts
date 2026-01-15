@@ -5,9 +5,11 @@ import { client } from '../client';
 import { loadEnemyList } from './database';
 import { config } from '../config';
 import { EnemySpec } from '../types';
-import { activeSpawns } from '../events/messageCreate';
 
 const enemyList = loadEnemyList();
+
+// In-memory active spawns map
+export const activeSpawns = new Map<string, { enemyKey: string; spawnedAt: Date; caughtBy: string | null }>();
 
 /**
  * Handle enemy spawn logic

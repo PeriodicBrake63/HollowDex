@@ -1,5 +1,5 @@
 import { Events, Interaction, ChatInputCommandInteraction, AutocompleteInteraction, ButtonInteraction } from 'discord.js';
-import { activeSpawns } from './messageCreate';
+import { activeSpawns } from '../utils/spawnHandler';
 import { attemptCatch, addEnemyToCollection } from '../utils/playerUtils';
 import { loadEnemyList as loadDbEnemyList } from '../utils/database';
 import { client } from '../client';
