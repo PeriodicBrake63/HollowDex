@@ -1,4 +1,4 @@
-import { Events, Message, AttachmentBuilder, TextChannel } from 'discord.js';
+import { Events, Message, AttachmentBuilder, TextChannel, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 import path from 'path';
 import fs from 'fs';
 import { client } from '../client';
@@ -7,6 +7,9 @@ import { config } from '../config';
 import { EnemySpec } from '../types';
 
 const enemyList = loadEnemyList();
+
+// In-memory active spawns map
+export const activeSpawns = new Map<string, { enemyKey: string; spawnedAt: Date; caughtBy: string | null }>();
 
 /**
  * Message create event handler
@@ -70,6 +73,15 @@ export async function execute(message: Message): Promise<void> {
         // Build spawn message
         const spawnMessage = `A wild ${chosenSpec.name} appears! HP: ${chosenSpec.health}, ATK: ${chosenSpec.attack}`;
 
+        // Create catch button
+        const catchButton = new ButtonBuilder()
+            .setCustomId(`catch_${chosenKey}`)
+            .setLabel('Catch')
+            .setStyle(ButtonStyle.Primary)
+            .setEmoji('🕸️');
+
+        const row = new ActionRowBuilder<ButtonBuilder>().addComponents(catchButton);
+
         // Try to find the enemy image
         const imgPath = path.join(
             config.assetsDir,
@@ -80,16 +92,16 @@ export async function execute(message: Message): Promise<void> {
 
         // Get spawn channel (use spawn_channel_id or spawn_ch)
         const spawnChannelId = serverConfig.spawn_channel_id || serverConfig.spawn_ch;
+        let spawnMsg: Message | null = null;
 
         if (!spawnChannelId) {
             // No spawn channel configured, send in current channel
-            // Type assertion since we know this is a guild text channel
             const channel = message.channel as TextChannel;
             if (fs.existsSync(imgPath)) {
                 const file = new AttachmentBuilder(imgPath);
-                await channel.send({ content: spawnMessage, files: [file] });
+                spawnMsg = await channel.send({ content: spawnMessage, files: [file], components: [row] });
             } else {
-                await channel.send(spawnMessage);
+                spawnMsg = await channel.send({ content: spawnMessage, components: [row] });
             }
         } else {
             // Send to configured spawn channel
@@ -98,12 +110,34 @@ export async function execute(message: Message): Promise<void> {
                 const textChannel = channel as TextChannel;
                 if (fs.existsSync(imgPath)) {
                     const file = new AttachmentBuilder(imgPath);
-                    await textChannel.send({ content: spawnMessage, files: [file] });
+                    spawnMsg = await textChannel.send({ content: spawnMessage, files: [file], components: [row] });
                 } else {
-                    await textChannel.send(spawnMessage);
+                    spawnMsg = await textChannel.send({ content: spawnMessage, components: [row] });
                 }
             }
         }
+
+        // Register spawn in memory with message ID
+        if (spawnMsg && chosenKey) {
+            activeSpawns.set(spawnMsg.id, {
+                enemyKey: chosenKey,
+                spawnedAt: new Date(),
+                caughtBy: null
+            });
+
+            // Cleanup spawn data after 5 minutes
+            setTimeout(() => {
+                if (spawnMsg) {
+                    activeSpawns.delete(spawnMsg.id);
+                    // Disable button after timeout
+                    const disabledRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
+                        ButtonBuilder.from(catchButton).setDisabled(true).setLabel('Fled')
+                    );
+                    spawnMsg.edit({ components: [disabledRow] }).catch(() => { });
+                }
+            }, 5 * 60 * 1000);
+        }
+
     } catch (error) {
         // Silently fail to not interrupt normal message flow
         console.error('Spawn error:', error);

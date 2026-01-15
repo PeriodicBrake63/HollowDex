@@ -8,7 +8,7 @@ export declare const data: import("discord.js").SlashCommandSubcommandsOnlyBuild
  */
 export declare function execute(interaction: ChatInputCommandInteraction): Promise<void>;
 /**
- * Handle autocomplete for enemy selection
+ * Handle autocomplete for own enemies
  */
 export declare function autocomplete(interaction: AutocompleteInteraction): Promise<void>;
 declare const _default: {

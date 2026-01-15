@@ -41,21 +41,21 @@ export interface ServerBase {
     [guildId: string]: ServerConfig;
 }
 /**
- * Player's captured enemy
+ * Captured enemy instance in player collection
  */
-export interface PlayerEnemy {
-    enemy_name?: string;
-    enemyName?: string;
-    atkMod?: number;
-    atk?: number;
-    defMod?: number;
-    def?: number;
+export interface CapturedEnemy {
+    id: string;
+    enemyKey: string;
+    nickname: string | null;
+    xp: number;
+    capturedAt: string;
 }
 /**
  * Player data structure
  */
 export interface PlayerData {
-    enemies: PlayerEnemy[];
+    xp: number;
+    enemies: CapturedEnemy[];
 }
 /**
  * Player base mapping from user ID to data
@@ -72,5 +72,25 @@ export interface CardSpecs {
     health: number;
     attack: number;
     ability: EnemyAbility | 0;
+}
+/**
+ * Active spawn data (in-memory)
+ */
+export interface ActiveSpawn {
+    enemyKey: string;
+    spawnedAt: Date;
+    caughtBy: string | null;
+}
+/**
+ * Trade session data (in-memory)
+ */
+export interface TradeSession {
+    initiator: string;
+    target: string;
+    initiatorOffer: string[];
+    targetOffer: string[];
+    initiatorConfirmed: boolean;
+    targetConfirmed: boolean;
+    createdAt: Date;
 }
 //# sourceMappingURL=index.d.ts.map

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.once = exports.name = void 0;
+exports.once = exports.name = exports.activeSpawns = void 0;
 exports.execute = execute;
 const discord_js_1 = require("discord.js");
 const path_1 = __importDefault(require("path"));
@@ -12,6 +12,8 @@ const client_1 = require("../client");
 const database_1 = require("../utils/database");
 const config_1 = require("../config");
 const enemyList = (0, database_1.loadEnemyList)();
+// In-memory active spawns map
+exports.activeSpawns = new Map();
 /**
  * Message create event handler
  * Handles random enemy spawns in configured channels
@@ -62,20 +64,27 @@ async function execute(message) {
         }
         // Build spawn message
         const spawnMessage = `A wild ${chosenSpec.name} appears! HP: ${chosenSpec.health}, ATK: ${chosenSpec.attack}`;
+        // Create catch button
+        const catchButton = new discord_js_1.ButtonBuilder()
+            .setCustomId(`catch_${chosenKey}`)
+            .setLabel('Catch')
+            .setStyle(discord_js_1.ButtonStyle.Primary)
+            .setEmoji('🕸️');
+        const row = new discord_js_1.ActionRowBuilder().addComponents(catchButton);
         // Try to find the enemy image
         const imgPath = path_1.default.join(config_1.config.assetsDir, 'enemies', chosenSpec.category, `${chosenSpec.name}.png`);
         // Get spawn channel (use spawn_channel_id or spawn_ch)
         const spawnChannelId = serverConfig.spawn_channel_id || serverConfig.spawn_ch;
+        let spawnMsg = null;
         if (!spawnChannelId) {
             // No spawn channel configured, send in current channel
-            // Type assertion since we know this is a guild text channel
             const channel = message.channel;
             if (fs_1.default.existsSync(imgPath)) {
                 const file = new discord_js_1.AttachmentBuilder(imgPath);
-                await channel.send({ content: spawnMessage, files: [file] });
+                spawnMsg = await channel.send({ content: spawnMessage, files: [file], components: [row] });
             }
             else {
-                await channel.send(spawnMessage);
+                spawnMsg = await channel.send({ content: spawnMessage, components: [row] });
             }
         }
         else {
@@ -85,12 +94,29 @@ async function execute(message) {
                 const textChannel = channel;
                 if (fs_1.default.existsSync(imgPath)) {
                     const file = new discord_js_1.AttachmentBuilder(imgPath);
-                    await textChannel.send({ content: spawnMessage, files: [file] });
+                    spawnMsg = await textChannel.send({ content: spawnMessage, files: [file], components: [row] });
                 }
                 else {
-                    await textChannel.send(spawnMessage);
+                    spawnMsg = await textChannel.send({ content: spawnMessage, components: [row] });
                 }
             }
+        }
+        // Register spawn in memory with message ID
+        if (spawnMsg && chosenKey) {
+            exports.activeSpawns.set(spawnMsg.id, {
+                enemyKey: chosenKey,
+                spawnedAt: new Date(),
+                caughtBy: null
+            });
+            // Cleanup spawn data after 5 minutes
+            setTimeout(() => {
+                if (spawnMsg) {
+                    exports.activeSpawns.delete(spawnMsg.id);
+                    // Disable button after timeout
+                    const disabledRow = new discord_js_1.ActionRowBuilder().addComponents(discord_js_1.ButtonBuilder.from(catchButton).setDisabled(true).setLabel('Fled'));
+                    spawnMsg.edit({ components: [disabledRow] }).catch(() => { });
+                }
+            }, 5 * 60 * 1000);
         }
     }
     catch (error) {
