@@ -1,3 +1,4 @@
+import discord
 from .Client import client
 from discord import app_commands
 
