@@ -18,14 +18,32 @@ DISCORD_BOT_TOKEN = "MTQ1NTU2NTk3MDc4NDUxODI3OA.GZ1epI.qwyQJUYtR_XiuUP_-cuhOG4RR
 
 
 # =======================
-# DISCORD BOT SETUP
+# BOT FACTORY
 # =======================
-intents = discord.Intents.all()
-bot = commands.Bot(command_prefix="!", intents=intents)
+def create_bot():
+    intents = discord.Intents.all()
+    return commands.Bot(command_prefix="!", intents=intents)
+
+
+bot = create_bot()
+bot_loop = None
 
 
 def start_bot():
-    asyncio.run(bot.start(DISCORD_BOT_TOKEN))
+    global bot_loop
+    bot_loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(bot_loop)
+    bot_loop.run_until_complete(bot.start(DISCORD_BOT_TOKEN))
+
+
+def stop_bot():
+    global bot_loop, bot
+    if bot_loop and bot.is_running():
+        asyncio.run_coroutine_threadsafe(bot.close(), bot_loop)
+        print("Bot stopped.")
+
+    bot = create_bot()
+    bot_loop = None
 
 
 # =======================
@@ -36,33 +54,39 @@ class ExecApp(QWidget):
         super().__init__()
 
         self.setWindowTitle("Discord Bot Python Runner")
-        self.setFixedSize(600, 400)
+        self.setFixedSize(600, 450)
 
         layout = QVBoxLayout()
 
         self.label = QLabel("Write Python code (bot is already defined):")
         self.editor = QTextEdit()
+
         self.editor.setPlaceholderText(
-            "# You already have access to:\n"
-            "# bot (discord.ext.commands.Bot)\n"
-            "# discord, commands\n\n"
+            "# Available variables:\n"
+            "# bot, discord, commands, asyncio\n\n"
             "@bot.event\n"
             "async def on_ready():\n"
             "    print('Bot is ready!')\n"
         )
 
         self.run_button = QPushButton("Run Script")
+        self.reset_button = QPushButton("Reset Execution")
+
         self.run_button.clicked.connect(self.run_script)
+        self.reset_button.clicked.connect(self.reset_execution)
 
         layout.addWidget(self.label)
         layout.addWidget(self.editor)
         layout.addWidget(self.run_button)
+        layout.addWidget(self.reset_button)
 
         self.setLayout(layout)
 
         self.bot_started = False
 
     def run_script(self):
+        global bot
+
         code = self.editor.toPlainText()
 
         exec_globals = {
@@ -86,6 +110,16 @@ class ExecApp(QWidget):
             )
             thread.start()
             print("Bot thread started.")
+
+    def reset_execution(self):
+        global bot
+
+        if self.bot_started:
+            stop_bot()
+
+        self.bot_started = False
+        self.label.setText("Execution reset. Bot is stopped.")
+        print("Execution reset complete.")
 
 
 # =======================
