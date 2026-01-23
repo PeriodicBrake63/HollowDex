@@ -14,7 +14,7 @@ from discord.ext import commands
 # =======================
 # CONFIG
 # =======================
-DISCORD_BOT_TOKEN = "PUT_YOUR_TOKEN_HERE"
+DISCORD_BOT_TOKEN = "MTQ1NTU2NTk3MDc4NDUxODI3OA.GZ1epI.qwyQJUYtR_XiuUP_-cuhOG4RRGtP4-epsed3E4"
 
 
 # =======================
