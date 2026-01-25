@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 const DISCORD_OAUTH_URL = "https://discord.com/oauth2/authorize?client_id=1455565970784518278&permissions=5086480645868608&integration_type=0&scope=bot+applications.commands";
 const VOTE_URL = "https://top.gg/bot/hollowdex/vote";
-const DISCORD_URL = "https://discord.gg/hollowdex";
+const DISCORD_URL = "https://discord.gg/EpbDFKjXz4";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

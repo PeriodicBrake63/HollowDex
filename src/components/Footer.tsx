@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import logo from "@/assets/hollowdex-logo.webp";
 
-const DISCORD_URL = "https://discord.gg/hollowdex";
+const DISCORD_URL = "https://discord.gg/EpbDFKjXz4";
 
 const Footer = () => {
   return (
