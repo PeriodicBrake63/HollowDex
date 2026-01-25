@@ -78,14 +78,10 @@ const Navbar = () => {
               </Link>
             )
           )}
-          <div className="pl-2 border-l border-border/50">
-            <ThemeToggle />
-          </div>
         </div>
 
         {/* Mobile Menu Button & Theme Toggle */}
         <div className="flex md:hidden items-center gap-2">
-          <ThemeToggle />
           <button
             onClick={() => setIsOpen((prev) => !prev)}
             className="p-2 text-muted-foreground hover:text-foreground transition-colors"
