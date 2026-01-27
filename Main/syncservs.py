@@ -22,5 +22,4 @@ async def backup_loop():
         await asyncio.gather(
             resyncServs()  # tu peux en mettre plusieurs si besoin
         )
-        await asyncio.sleep(120)
-
+        await asyncio.sleep(60)
