@@ -10,6 +10,7 @@ server = app_commands.Group(name="server", description="Server commands")
 )
 @app_commands.describe(channel="The channel to set as spawn channel")
 async def spawnch(interaction: discord.Interaction, channel: discord.TextChannel):
-    await interaction.response.send_message(f"*act like the spawn channel for this server is now set to {channel.mention}*", ephemeral=True)
-
+    client.ServerBase[str(interaction.guild.id)]["spawn_ch"] = channel.id
+    client.ServerBase[str(interaction.guild.id)]["disabled"] = False
+    await interaction.response.send_message(f"Spawn channel set to {channel.mention} and disabled mode turned off.", ephemeral=True)
 client.tree.add_command(server)

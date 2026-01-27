@@ -13,7 +13,8 @@ from syncservs import *
 async def on_ready():
     await client.tree.sync()
     await resyncServs()
+    print(f'[LOG~~] Bot is online as {client.user}')
     client.loop.create_task(backup_loop())
-    print(f'Bot is online as {client.user}')
+    print("[LOG~~] Backup loop started.")
 
 client.run(ENV_V.TOKEN)
