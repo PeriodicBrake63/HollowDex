@@ -1,5 +1,5 @@
 import os
-
+from math import *
 from .Commands.Client import client
 import discord
 import asyncio
@@ -19,12 +19,17 @@ def _load_json(fname):
         return {}
 
 server_base = _load_json("ServerBase.json")
+player_base = _load_json("PlayerBase.json")
 enemy_list = _load_json("Enemylist.json")
 
-class catch_btn(discord.ui.View):
-    @discord.ui.button(label="Click me", style=discord.ButtonStyle.primary)
+class catch_btn(discord.ui.View, enemy: str):
+    @discord.ui.button(label="Catch!", style=discord.ButtonStyle.primary)
     async def button_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.send_message("Bouton cliqué 😏", ephemeral=True)
+        a = 0
+        async for i in player_base[str(interaction.user.id)][enemies]:
+            atk = floor(((i[atkfactor]/100) + 1) * enemy_list[i[enemy]]["attack"])
+            a += atk
+        if 
 
 @client.event
 async def on_message(message: discord.Message):
