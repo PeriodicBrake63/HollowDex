@@ -22,20 +22,39 @@ server_base = _load_json("ServerBase.json")
 player_base = _load_json("PlayerBase.json")
 enemy_list = _load_json("Enemylist.json")
 
-class catch_btn(discord.ui.View, enemy: str):
+class catch_btn(discord.ui.View):
+    def __init__(self, enemy: str, atkfactor: str, hltfactor: str):
+        super().__init__()
+        self.enemy = enemy
+        self.atkfactor = atkfactor
+        self.hltfactor = hltfactor
+        self.timeoutUNIX = floor(discord.utils.utcnow().timestamp()) + random.randint(60, 180)
+
     @discord.ui.button(label="Catch!", style=discord.ButtonStyle.primary)
     async def button_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
         a = 0
-        async for i in player_base[str(interaction.user.id)][enemies]:
-            atk = floor(((i[atkfactor]/100) + 1) * enemy_list[i[enemy]]["attack"])
+        async for i in player_base[str(interaction.user.id)]["enemies"]:
+            atk = ((i[atkfactor]/100) + 1) * enemy_list[i["enemy"]]["attack"]
             a += atk
-        if 
+        a = floor(a)
+        if a > enemy_list[self.enemy]["health"]:
+            await interaction.response.send_message(f"You caught the {self.enemy}!", ephemeral=True)
+            player_base[str(interaction.user.id)]["enemies"].append({
+                "enemy": self.enemy,
+                "atkfactor": self.atkfactor,
+                "hltfactor": self.hltfactor,
+                "timestamp": floor(discord.utils.utcnow().timestamp())
+            })
+        else:
+            await interaction.response.send_message(f"The {self.enemy} broke free!", ephemeral=True)
 
 @client.event
 async def on_message(message: discord.Message):
     if message.author == client.user:
         return
     if not message.guild:
+        return
+    if server_base[str(message.guild.id)]["disabled"] != True:
         return
     try:
         cfg = server_base.get(str(message.guild.id))
@@ -54,6 +73,6 @@ async def on_message(message: discord.Message):
                 msg = "You feel a sudden chill run down your spine..."
             channel = message.guild.get_channel(cfg.get("spawn_channel_id"))
             if channel:
-                await channel.send(msg, discord.File(img_path))
+                await channel.send(msg, discord.File(img_path), view=catch_btn(enemy_key, "atkfactor", "hltfactor"))
     except Exception:
         return

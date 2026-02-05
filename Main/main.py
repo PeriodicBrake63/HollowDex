@@ -1,3 +1,10 @@
+# HollowDex - A Discord Bot for Pokemon-like Gameplay
+# Developed by PeriodicBrake
+#
+# I spent hours building this and now i don't even know how it works
+# If you want to edit something, please update this counter:
+# Total hours wasted here: 47
+
 import os
 import json
 import variables as ENV_V
