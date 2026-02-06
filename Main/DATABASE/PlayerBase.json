@@ -5,20 +5,26 @@
     "enemies": [
       {
         "enemy": "crawlid",
-        "atkfactor": -34,
-        "hltfactor": 33,
+        "atkfactor": 100,
+        "hltfactor": 100,
         "timestamp": -23478896661
       },
       {
         "enemy": "crawlid",
-        "atkfactor": 33,
-        "hltfactor": -32,
+        "atkfactor": 100,
+        "hltfactor": 100,
         "timestamp": -23478896661
       },
       {
         "enemy": "crawlid",
-        "atkfactor": -24,
-        "hltfactor": 12,
+        "atkfactor": 100,
+        "hltfactor": 100,
+        "timestamp": -23478896661
+      },
+      {
+        "enemy": "knight",
+        "atkfactor": 0,
+        "hltfactor": 0,
         "timestamp": -23478896661
       }
     ]
