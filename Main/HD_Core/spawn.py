@@ -51,8 +51,9 @@ async def on_message(message: discord.Message):
         if random.randint(1, 100) <= 1:
             x = []
             for idx, i in enumerate(client.EnemyList):
-                for j in floor(1/i["rarity"]):
-                    x.append(idx)
+                if not idx == knight:
+                    for j in range(floor(1/i["rarity"])):
+                        x.append(idx)
                     
             chosen = random.choice(x)
             img_path = client.EnemyList[chosen]["path"]
