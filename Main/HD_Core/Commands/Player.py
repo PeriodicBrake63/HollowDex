@@ -56,7 +56,7 @@ async def player_config(interaction: discord.Interaction):
     usr="the user you want to look up"
 )
 async def player_info(interaction: discord.Interaction, usr: discord.User):
-    user_data = client.PlayerBase[str(usr.id)]
+    
     if str(usr.id) == "993196090654457898":
         await interaction.response.send_message(f"""
         **{usr.name}**:
@@ -65,6 +65,11 @@ async def player_info(interaction: discord.Interaction, usr: discord.User):
         \- Denominations: The creator, Pale king
         """)
         return
+    if not str(usr.id)in client.PlayerBase:
+        await interaction.response.send_message(f"{usr.name} doesn't have an account yet!", ephemeral=True)
+        return
+    user_data = client.PlayerBase[str(usr.id)]
+    money = user_data["money"]
     await interaction.response.send_message(f"", ephemeral=False)
 
 client.tree.add_command(player)
