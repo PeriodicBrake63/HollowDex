@@ -1,1 +1,26 @@
-{}
+{
+  "993196090654457898": {
+    "init_timestamp": -23478896661,
+    "money": 250,
+    "enemies": [
+      {
+        "enemy": "crawlid",
+        "atkfactor": -34,
+        "hltfactor": 33,
+        "timestamp": -23478896661
+      },
+      {
+        "enemy": "crawlid",
+        "atkfactor": 33,
+        "hltfactor": -32,
+        "timestamp": -23478896661
+      },
+      {
+        "enemy": "crawlid",
+        "atkfactor": -24,
+        "hltfactor": 12,
+        "timestamp": -23478896661
+      }
+    ]
+  }
+}
