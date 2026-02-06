@@ -60,10 +60,11 @@ async def player_info(interaction: discord.Interaction, usr: discord.User):
     if str(usr.id) == "993196090654457898":
         await interaction.response.send_message(f"""
         **{usr.name}**:
-        - Money: as much as he wants
-        - Enemies: all + the one and only knight
-        - Denominations: The creator, Pale king
+        \- Money: as much as he wants
+        \- Enemies: all + the one and only knight
+        \- Denominations: The creator, Pale king
         """)
+        return
     await interaction.response.send_message(f"", ephemeral=False)
 
 client.tree.add_command(player)
