@@ -89,7 +89,7 @@ async def on_message(message: discord.Message):
     if client.ServerBase[str(message.guild.id)]["disabled"] == True:
         return
     try:
-        if random.randint(1, 5) <= 1:
+        if random.randint(1, 100) <= 1:
             x = []
             for idx, I in enumerate(client.EnemyList):
                 i = client.EnemyList[I]
