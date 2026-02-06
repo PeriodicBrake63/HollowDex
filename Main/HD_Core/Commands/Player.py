@@ -56,6 +56,14 @@ async def player_config(interaction: discord.Interaction):
     usr="the user you want to look up"
 )
 async def player_info(interaction: discord.Interaction, usr: discord.User):
-    await interaction.response.send_message(f"*to be implemented...*", ephemeral=True)
+    user_data = client.PlayerBase[str(usr.id)]
+    if str(usr.id) == "993196090654457898":
+        await interaction.response.send_message(f"""
+        **{usr.name}**:
+        - Money: as much as he wants
+        - Enemies: all + the one and only knight
+        - Denominations: The creator, Pale king
+        """)
+    await interaction.response.send_message(f"", ephemeral=False)
 
 client.tree.add_command(player)
