@@ -47,5 +47,14 @@
             "count": 2
         },
         "rarity": 0.5
+    },
+    "knight": {
+        "name": "the Knight",
+        "category": "forgotten_crossroads",
+        "path": "assets/enemies/forgotten_crossroads/knight.png",
+        "health": 99999,
+        "attack": 99999,
+        "ability": 0,
+        "rarity": "infinite"
     }
 }

@@ -28,5 +28,17 @@
         "timestamp": -23478896661
       }
     ]
+  },
+  "1442897117537374329": {
+    "init_timestamp": 1770404837,
+    "money": 250,
+    "enemies": [
+      {
+        "enemy": "crawlid",
+        "atkfactor": -90,
+        "hltfactor": 27,
+        "timestamp": 1770404837
+      }
+    ]
   }
 }
