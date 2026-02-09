@@ -75,6 +75,7 @@ async def player_info(interaction: discord.Interaction, usr: discord.User):
     user_data = client.PlayerBase[str(usr.id)]
     user_init_timestamp = user_data["init_timestamp"]
     money = user_data["money"]
+    # TODO: Fix percentage by making it the actual progression
     percentage = len(user_data['enemies']) / (len(client.EnemyList) - 1) * 100
     await interaction.response.send_message(f"""
 ##**{usr.name}**:

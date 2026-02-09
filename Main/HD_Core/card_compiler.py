@@ -3,7 +3,7 @@ import os
 
 def compile_card(specs, output_path):
     base_path = "assets/background/" + specs["category"] + ".png"
-    enemy_dir = os.path.join("assets", "enemies", specs["category"])
+    enemy_dir = os.path.join("../assets", "enemies", specs["category"])
     enemy_path = None
     try:
         want = str(specs.get("name", "")).lower().replace(" ", "")
@@ -23,8 +23,8 @@ def compile_card(specs, output_path):
     health = str(specs["health"])
     attack = str(specs["attack"])
     base = Image.open(base_path).convert("RGBA")
-    Mask_icon = Image.open("assets/icons/mask.png")
-    Nail_icon = Image.open("assets/icons/nail.png")
+    Mask_icon = Image.open("../assets/icons/mask.png")
+    Nail_icon = Image.open("../assets/icons/nail.png")
     global abilitytext
     if specs["ability"] == 0:
         abilitytext = "Does not have an ability"
@@ -39,8 +39,8 @@ def compile_card(specs, output_path):
     base.paste(Nail_icon, (579, 910), Nail_icon)
     
     draw = ImageDraw.Draw(base)
-    font = ImageFont.truetype("assets/fonts/font.ttf", 40)
-    pfont = ImageFont.truetype("assets/fonts/font.ttf", 30)
+    font = ImageFont.truetype("../assets/fonts/font.ttf", 40)
+    pfont = ImageFont.truetype("../assets/fonts/font.ttf", 30)
 
     draw.text((65, 12.5), name, font=font, fill=(255, 255, 255, 255))
     draw.text((65, 435), "Ability:", font=font, fill=(255, 255, 255, 255))

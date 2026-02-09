@@ -1,4 +1,4 @@
-import card_compiler
+from Main.HD_Core import card_compiler
 import json
 
 with open("assets/enemylist.json", "r") as f:

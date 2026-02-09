@@ -17,7 +17,7 @@ class CatchBtn(discord.ui.View):
         self.message = None 
         
     async def on_timeout(self):
-        """Greys out the button when the timer ends or the enemy is gone."""
+        """Grays out the button when the timer ends or the enemy is gone."""
         for item in self.children:
             item.disabled = True
         
@@ -86,7 +86,7 @@ async def on_message(message: discord.Message):
         return
     if not message.guild:
         return
-    if client.ServerBase[str(message.guild.id)]["disabled"] == True:
+    if client.ServerBase[str(message.guild.id)]["disabled"]:
         return
     try:
         if random.randint(1, 100) <= 1:

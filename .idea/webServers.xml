@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="1bbc8982-ddbe-4180-9bdb-d7cd686ff692" name="raspberry pi" url="https://periodicbrake.fr">
+        <fileTransfer accessType="SFTP" host="periodicbrake.fr" port="22" sshConfigId="7cc44618-7751-4adb-8c64-8890a09ac802" sshConfig="periodicbrake@periodicbrake.fr:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" isUseSudo="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
