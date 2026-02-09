@@ -15,7 +15,7 @@ You can also **fight** someone else. if they accept, a fight will automatically 
 
 You can also do **trades**. The concept is simple. You exchange enemies with another person to grow your collection even further!
 ## commands
-> /help
+> /help 
 
 Displays this markdown file
 
