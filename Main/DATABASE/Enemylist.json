@@ -4,7 +4,7 @@
         "category": "forgotten_crossroads",
         "path": "assets/enemies/forgotten_crossroads/crawlid.png",
         "health": 80,
-        "attack": 25,
+        "attack": 45,
         "ability": 0,
         "rarity": 0.1
     },
