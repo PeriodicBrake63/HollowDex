@@ -4,45 +4,17 @@ from discord import app_commands
 from .Client import client
 import json
 
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-DB_DIR = os.path.join(BASE_DIR, "DATABASE")
-
-def _load_json(fname):
-    try:
-        with open(os.path.join(DB_DIR, fname), "r") as f:
-            return json.load(f)
-    except Exception:
-        return {}
-
-EnemyList = _load_json("Enemylist.json")
-
 enemy = app_commands.Group(name="enemy", description="Enemy-related commands")
 
 @enemy.command(
     name="inspect",
-    description="Inspect an enemy by key or name"
+    description="Inspect an enemy by ID"
 )
 @app_commands.describe(
-    query="enemy key or display name"
+    query="enemy ID (use autocompletion)"
 )
 async def enemy_inspect(interaction: discord.Interaction, query: str):
-    q = query.lower().strip()
-    if "," in q:
-        q = q.split(",", 1)[0].strip()
-    if "#" in q:
-        q = q.split("#", 1)[0].strip()
-    q = q.replace("enemy ", "").strip()
-    found = None
-    for key, spec in EnemyList.items():
-        if key.lower() == q or str(spec.get("name", "")).lower() == q:
-            found = (key, spec)
-            break
-    if not found:
-        for key, spec in EnemyList.items():
-            if q in key.lower() or q in str(spec.get("name", "")).lower():
-                found = (key, spec)
-                break
-    if not found:
+    if "#" in query:
         await interaction.response.send_message(f"Enemy '{query}' not found.")
         return
     key, spec = found

@@ -25,11 +25,11 @@ class MyClient(discord.Client):
 
     async def setup_hook(self):
         await self.tree.sync()
-        print("Global commands synced!")
-        print("Synced commands:")
+        print("[LOG~~]: Global commands synced")
+        print("[LOG~~]: Synced commands:")
         for cmd in self.tree.walk_commands():
             qname = getattr(cmd, "qualified_name", None) or getattr(cmd, "name", "<unknown>")
             desc = getattr(cmd, "description", "")
-            print(f"- {qname}: {desc}")
+            print(f"[LOG~~]: - {qname}: {desc}")
 
 client = MyClient()

@@ -1,1 +1,2 @@
-TOKEN = "MTQ1NTU2NTk3MDc4NDUxODI3OA.GZ1epI.qwyQJUYtR_XiuUP_-cuhOG4RRGtP4-epsed3E4"
+import os
+TOKEN = os.getenv("DC_TOKEN")
