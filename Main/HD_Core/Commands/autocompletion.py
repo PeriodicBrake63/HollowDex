@@ -1,6 +1,6 @@
 import discord
 from discord import app_commands
-from Client import client
+from .Client import client
 
 
 async def enemy_autocomplete(interaction: discord.Interaction, current: str):
