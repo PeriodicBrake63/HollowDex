@@ -111,7 +111,10 @@ async def on_message(message: discord.Message):
             file = discord.File(img_path, filename="enemy.png")
 
             if chosen:
-                msg = f"A wild {client.EnemyList[chosen]["name"]} appears! HP: {floor(client.EnemyList[chosen]["attack"] * (1 + (atkfactor/100)))}, ATK: {floor(client.EnemyList[chosen]["health"] * (1 + (hltfactor/100)))}"
+                tmp_name = client.EnemyList[chosen]["name"]
+                tmp_hp = floor(client.EnemyList[chosen]["attack"] * (1 + (atkfactor/100)))
+                tmp_atk = floor(client.EnemyList[chosen]["health"] * (1 + (hltfactor/100)))
+                msg = f"A wild {tmp_name} appears! HP: {tmp_hp}, ATK: {tmp_atk}"
             else:
                 return
             channel = message.guild.get_channel(client.ServerBase[str(message.guild.id)]["spawn_ch"])
