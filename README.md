@@ -1,4 +1,5 @@
 # HollowDex
+⚠️ Legal Notice: This repository is public for architectural visualization purposes only. No license is granted for the use, modification, or redistribution of this software. All rights reserved.
 ## Description
 This is an unofficial discord bot for all hollow knight © lovers
 
